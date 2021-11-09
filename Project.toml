@@ -1,0 +1,7 @@
+name = "CodeCompressor"
+uuid = "a99019cb-3908-4f42-a6d1-58ef7baa6e37"
+authors = ["p1scescom <piscesuoza0317@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+MLStyle = "d8e11817-5142-5d16-987a-aa16d5891078"
