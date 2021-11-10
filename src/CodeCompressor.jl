@@ -24,11 +24,13 @@ If you want to compress jl file, you use `compresssource`.
 
 # Examples
 ```jldoctest
-julia> compresscode("
-   a =   1 +1
-println(a, true ? 10 :1);
-")
-"a = 1 +1;println(a, true ? 10 :1);"
+julia> compresscode(\"""
+          a =   1 +1 #hogemi
+       #= memomemo =#
+       println("a $("b" * "c")?", a, true ? 10 : 1);
+       \""")
+" a = 1 +1 ;;println(\"a bc?\", a, true ? 10 : 1);;"
+
 ```
 """
 function compresscode(code; deletespace=true, deletebreak=true, deletecomment=true)
