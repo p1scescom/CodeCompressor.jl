@@ -183,6 +183,10 @@ function compresscode(code; deletespace=true, deletebreak=true, deletecomment=tr
 
     compcode = String(take!(io))
     close(io)
+    
+    if compcode != code
+        compcode = compresscode(compcode; deletespace=deletespace, deletebreak=deletebreak, deletecomment=deletecomment)
+    end
 
     return compcode
 end
