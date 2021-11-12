@@ -110,6 +110,15 @@ function compresscode(code; deletespace=true, deletebreak=true, deletecomment=tr
                     if instring && bracketnest == bracketcount
                         pop!(state)
                     end
+                # for semicolon
+                elseif c == ';'
+                    while c == ';'
+                        ind += 1
+                        c = code[ind]
+                    end
+                    adds = ";"
+                    pop!(state)
+                    push!(state, NormalCode(instring, bracketcount, ind))
                 # for break
                 elseif deletebreak && c == '\n'
                     adds = ";"
