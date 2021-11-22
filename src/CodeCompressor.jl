@@ -173,7 +173,31 @@ function compresscode(code; deletespace=true, deletebreak=true, deletecomment=tr
                 end
             end
             CommandString(instring, istriple, sind) => begin
-                c = code[ind]
+                bind = ind
+                while ind <= codelength
+                    if !istriple && code[ind] == '`'
+                        bind = ind
+                        ind += 1
+                        pop!(state)
+                        push!(state, NormalCode(instring, bracketcount, ind))
+                        break
+                    elseif istriple && code[ind:ind+2] == "```"
+                        bind = ind+2
+                        ind += 3
+                        pop!(state)
+                        push!(state, NormalCode(instring, bracketcount, ind))
+                        break
+                    else code[ind:ind+1] == "\$("
+                        bind = ind
+                        ind += 1
+                        push!(NormalCode(true, bracketcount, ind))
+                        break
+                    end
+                    ind += 1
+                end
+                if !instring
+                    wio(code[sind:bind])
+                end
             end
             Comment(instring, islines, sind) && if islines end => begin
                 eind = ind+2
